@@ -1,0 +1,68 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    name: Test
+    runs-on: docker
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # gpui links against the Linux windowing/font stack even for a headless
+      # build, because gpui-component enables gpui_platform's wayland and x11
+      # features. This is the subset of zed's own script/linux that gpui needs;
+      # the rest of that script is for the editor (libgit2, sqlite, pipewire,
+      # webrtc). If another -sys crate fails to build, check script/linux in the
+      # zed tree at the pinned rev for the package that provides it.
+      - name: Install system libraries
+        env:
+          DEBIAN_FRONTEND: noninteractive
+        run: |
+          apt-get update
+          apt-get install -y --no-install-recommends \
+            build-essential pkg-config cmake clang libclang-dev \
+            libwayland-dev libxkbcommon-x11-dev libx11-xcb-dev \
+            libfontconfig-dev libfreetype-dev libssl-dev
+
+      - name: Setup Rust
+        uses: https://code.forgejo.org/siebert/setup-rust@v1
+        with:
+          toolchain: stable
+          components: rustfmt, clippy
+
+      - name: Cache cargo registry, binaries and target
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            ~/.cargo/bin
+            target
+          key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-cargo-
+
+      # Steps below call Justfile recipes so CI and `just all` cannot drift.
+      # Add checks to the Justfile, not here.
+      - name: Install just and cargo-deny
+        run: cargo install --locked just cargo-deny
+
+      - name: Check
+        run: just check
+
+      - name: Format check
+        run: just fmt
+
+      - name: Clippy
+        run: just lint
+
+      - name: Tests
+        run: just test
+
+      - name: Audit
+        run: just audit

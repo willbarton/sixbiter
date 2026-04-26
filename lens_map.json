@@ -1,0 +1,80 @@
+{
+  "Voigtlander APO Lanthar 50 mm f/2 aspherical VM": {
+    "match": {
+      "FocalLength": "50.0 mm",
+      "LensMake": "Leica Camera AG",
+      "LensModel": "Apo-Summicron-M 1:2/50 ASPH.",
+      "LensID": "Apo-Summicron-M 1:2/50 ASPH."
+    },
+    "modify": {
+      "LensMake": "Voigtlander",
+      "LensModel": "APO Lanthar 50 mm f/2 aspherical VM.",
+      "LensID": "APO Lanthar 50 mm f/2 aspherical VM."
+    }
+  },
+  "Voigtlander APO Lanthar 35 mm f/2 aspherical VM": {
+    "match": {
+      "FocalLength": "35.0 mm",
+      "LensMake": "Leica Camera AG",
+      "LensModel": "Apo-Summicron-M 1:2/35 ASPH.",
+      "LensID": "Apo-Summicron-M 1:2/35 ASPH."
+    },
+    "modify": {
+      "LensMake": "Voigtlander",
+      "LensModel": "APO Lanthar 35 mm f/2 aspherical VM.",
+      "LensID": "APO Lanthar 35 mm f/2 aspherical VM."
+    }
+  },
+  "Voigtlander Ultron 35 mm f/2 aspherical VM": {
+    "match": {
+      "FocalLength": "35.0 mm",
+      "LensMake": "Leica Camera AG",
+      "LensModel": "Summicron-M 1:2/35 ASPH.",
+      "LensID": "Summicron-M 1:2/35 ASPH."
+    },
+    "modify": {
+      "LensMake": "Voigtlander",
+      "LensModel": "Ultron 35 mm f/2 aspherical VM",
+      "LensID": "Ultron 35 mm f/2 aspherical VM"
+    }
+  },
+  "Voigtlander Color-Skopar 21mm f/3.5 Aspherical": {
+    "match": {
+      "FocalLength": "21.0 mm",
+      "LensMake": "Leica Camera AG",
+      "LensModel": "Elmarit-M 1:2.8/21 ASPH.",
+      "LensID": "Elmarit-M 1:2.8/21 ASPH."
+    },
+    "modify": {
+      "LensMake": "Voigtlander",
+      "LensModel": "Color-Skopar 21mm f/3.5 Aspherical",
+      "LensID": "Color-Skopar 21mm f/3.5 Aspherical"
+    }
+  },
+  "Voigtlander Nokton 21mm f/1.4 Aspherical": {
+    "match": {
+      "FocalLength": "21.0 mm",
+      "LensMake": "Leica Camera AG",
+      "LensModel": "Summilux-M 1:1.4/21 ASPH.",
+      "LensID": "Summilux-M 1:1.4/21 ASPH."
+    },
+    "modify": {
+      "LensMake": "Voigtlander",
+      "LensModel": "Nokton 21mm f/1.4 Aspherical",
+      "LensID": "Nokton 21mm f/1.4 Aspherical"
+    }
+  },
+  "Voigtlander APO Ultron 90 mm f/2 aspherical VM": {
+    "match": {
+      "FocalLength": "90.0 mm",
+      "LensMake": "Leica Camera AG",
+      "LensModel": "Apo-Summicron-M 1:2/90 ASPH.",
+      "LensID": "Apo-Summicron-M 1:2/90 ASPH."
+    },
+    "modify": {
+      "LensMake": "Voigtlander",
+      "LensModel": "APO Ultron 90 mm f/2 aspherical VM",
+      "LensID": "APO Ultron 90 mm f/2 aspherical VM"
+    }
+  }
+}

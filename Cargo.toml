@@ -1,0 +1,56 @@
+[package]
+name = "sixbiter"
+version = "0.1.0"
+edition = "2024"
+license = "GPL-3.0-or-later"
+repository = "https://github.com/willbarton/sixbiter"
+homepage = "https://sixbiter.com"
+authors = ["Will Barton <10562538+willbarton@users.noreply.github.com>"]
+
+[[bin]]
+name = "sixbiter"
+path = "src/main.rs"
+
+[dependencies]
+exiftool-rs = "0.7"
+serde_json = { version = "1.0.145", features = ["preserve_order"] }
+serde = { version = "1", features = ["derive"] }
+indexmap = { version = "2", features = ["serde"] }
+dirs = "5"
+walkdir = "2"
+futures = "0.3"
+anyhow = "1.0.100"
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter", "fmt"] }
+
+# The zed crates are deliberately NOT pinned here -- they are pinned in
+# Cargo.lock instead, because gpui-component declares its own zed deps with no
+# rev.
+#
+# To bump: move the gpui-component rev below, read the zed rev out of
+# gpui-component's Cargo.lock at that commit, then re-pin the lockfile:
+#
+#   cargo update -p gpui --precise <zed-rev>
+gpui = {
+    git = "https://github.com/zed-industries/zed",
+}
+gpui_platform = {
+    git = "https://github.com/zed-industries/zed",
+    features = ["font-kit"]
+}
+gpui-component = {
+    git = "https://github.com/longbridge/gpui-component",
+    rev = "88f102d13654fe25aa2fede076274b6b751a3704",
+}
+gpui-component-assets = {
+    git = "https://github.com/longbridge/gpui-component",
+    rev = "88f102d13654fe25aa2fede076274b6b751a3704",
+}
+
+[dev-dependencies]
+tempfile = "3"
+
+# Turn on the test-support feature in gpui
+gpui = { git = "https://github.com/zed-industries/zed", features = [
+    "test-support",
+] }

@@ -1,0 +1,60 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+
+      # gpui links against the Linux windowing/font stack even for a headless
+      # build, because gpui-component enables gpui_platform's wayland and x11
+      # features. This is the subset of zed's own script/linux that gpui needs;
+      # the rest of that script is for the editor (libgit2, sqlite, pipewire,
+      # webrtc). If another -sys crate fails to build, check script/linux in the
+      # zed tree at the pinned rev for the package that provides it.
+      - name: Install system libraries
+        env:
+          DEBIAN_FRONTEND: noninteractive
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends \
+            build-essential pkg-config cmake clang libclang-dev \
+            libwayland-dev libxkbcommon-x11-dev libx11-xcb-dev \
+            libfontconfig-dev libfreetype-dev libssl-dev
+
+      - name: Setup Rust
+        uses: dtolnay/rust-toolchain@6bed0761d98439e5a578e2877258200ad565ba87 # stable branch @ 2026-09-13
+        with:
+          # Rust floats while the action is pinned to a sha
+          toolchain: stable
+          components: rustfmt, clippy
+
+      - name: Cache cargo registry and target
+        uses: Swatinem/rust-cache@6323deb102c322ba6fcbdcafc7e3dddab59af2b6 # v2.9.2
+
+      - name: Install just and cargo-deny
+        uses: taiki-e/install-action@3f74d7c16a4242f1c95561e98edc25d36adb4375 # v2.87.12
+        with:
+          tool: just,cargo-deny
+
+      - name: Check
+        run: just check
+
+      - name: Format check
+        run: just fmt
+
+      - name: Clippy
+        run: just lint
+
+      - name: Tests
+        run: just test
+
+      - name: Audit
+        run: just audit
