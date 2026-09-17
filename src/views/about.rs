@@ -1,12 +1,12 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 // Copyright (C) 2026 Will Barton
 
-use gpui::{
+use gpui_kit::component::{ActiveTheme, Root, StyledExt};
+use gpui_kit::{
     App, AppContext, Bounds, Context, Global, InteractiveElement, IntoElement, ParentElement,
     Render, StatefulInteractiveElement, Styled, TitlebarOptions, Window, WindowBounds,
     WindowHandle, WindowOptions, div, px, size,
 };
-use gpui_component::{ActiveTheme, Root, StyledExt};
 
 pub struct AboutView;
 

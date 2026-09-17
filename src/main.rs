@@ -11,8 +11,8 @@ mod preferences;
 mod test_support;
 mod views;
 
-use gpui::{AppContext, Bounds, TitlebarOptions, WindowBounds, WindowOptions, point, px, size};
-use gpui_component::Root;
+use gpui_kit::component::Root;
+use gpui_kit::{AppContext, Bounds, TitlebarOptions, WindowBounds, WindowOptions, point, px, size};
 
 fn init_tracing() {
     use tracing_subscriber::EnvFilter;
@@ -29,10 +29,10 @@ fn init_tracing() {
 fn main() {
     init_tracing();
 
-    let app = gpui_platform::application().with_assets(gpui_component_assets::Assets);
+    let app = gpui_kit::application().with_assets(gpui_kit::assets::Assets);
 
     app.run(move |cx| {
-        gpui_component::init(cx);
+        gpui_kit::init(cx);
         appearance::init_themes(cx);
         lens::store::init(cx);
         preferences::init(cx);

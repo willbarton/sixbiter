@@ -2,7 +2,7 @@
 // Copyright (C) 2026 Will Barton
 
 use crate::lens::mapping::{LensMap, LensMapEntry, load_lens_map, save_lens_map};
-use gpui::{App, Global};
+use gpui_kit::{App, Global};
 use std::path::PathBuf;
 
 /// Application-scoped store for the user's lens mapping rules. Loaded from

@@ -5,16 +5,16 @@ mod delegate;
 pub mod helpers;
 
 use futures::StreamExt;
-use gpui::{
-    AnyElement, App, AppContext, Context, Entity, FocusHandle, Focusable, IntoElement,
-    PathPromptOptions, SharedString, Task, Window, actions, div, prelude::*, px,
-};
-use gpui_component::{
+use gpui_kit::component::{
     ActiveTheme, Disableable, IconName, Sizable, StyledExt,
     button::{Button, ButtonVariants, DropdownButton},
     menu::PopupMenuItem,
     switch::Switch,
     table::TableState,
+};
+use gpui_kit::{
+    AnyElement, App, AppContext, Context, Entity, FocusHandle, Focusable, IntoElement,
+    PathPromptOptions, SharedString, Task, Window, actions, div, prelude::*, px,
 };
 use std::path::PathBuf;
 use std::sync::Arc;
@@ -579,7 +579,7 @@ impl Render for FilesView {
 mod tests {
     use super::*;
     use crate::test_support::test_app;
-    use gpui::{TestAppContext, WindowHandle};
+    use gpui_kit::{TestAppContext, WindowHandle};
     use std::path::Path;
 
     /// A `FilesView` in a test window, with the app's globals rooted at a
@@ -623,7 +623,7 @@ mod tests {
         }
     }
 
-    #[gpui::test]
+    #[gpui_kit::test]
     fn pick_folder_remembers_the_chosen_folder(cx: &mut TestAppContext) {
         let (tmp, window) = files_view(cx);
 
@@ -654,7 +654,7 @@ mod tests {
         assert_eq!(remembered.as_deref(), Some(chosen.as_path()));
     }
 
-    #[gpui::test]
+    #[gpui_kit::test]
     fn scan_adds_a_row_for_each_dng(cx: &mut TestAppContext) {
         let (tmp, window) = files_view(cx);
 
@@ -684,7 +684,7 @@ mod tests {
         assert!(!busy, "scan should clear the busy flag when it finishes");
     }
 
-    #[gpui::test]
+    #[gpui_kit::test]
     fn reset_clears_the_folder_and_forgets_it(cx: &mut TestAppContext) {
         let (tmp, window) = files_view(cx);
 
@@ -719,7 +719,7 @@ mod tests {
         assert_eq!(remembered, None);
     }
 
-    #[gpui::test]
+    #[gpui_kit::test]
     fn apply_writes_the_matched_rule_and_marks_the_row_applied(cx: &mut TestAppContext) {
         let (tmp, window) = files_view(cx);
         let dng = real_dng(tmp.path());
@@ -753,7 +753,7 @@ mod tests {
         );
     }
 
-    #[gpui::test]
+    #[gpui_kit::test]
     fn apply_marks_unwritable_files_as_failed(cx: &mut TestAppContext) {
         let (tmp, window) = files_view(cx);
         stub_file(tmp.path(), "broken.dng");
@@ -782,7 +782,7 @@ mod tests {
         assert!(!busy, "a failed row should still clear the busy flag");
     }
 
-    #[gpui::test]
+    #[gpui_kit::test]
     fn apply_leaves_unselected_rows_pending(cx: &mut TestAppContext) {
         let (tmp, window) = files_view(cx);
         stub_file(tmp.path(), "a.dng");
@@ -819,7 +819,7 @@ mod tests {
     }
 
     /// Test rule matching end-to-end
-    #[gpui::test]
+    #[gpui_kit::test]
     fn scan_matches_stored_rules_against_real_files(cx: &mut TestAppContext) {
         let (tmp, window) = files_view(cx);
 

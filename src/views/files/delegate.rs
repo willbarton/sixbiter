@@ -1,14 +1,14 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 // Copyright (C) 2026 Will Barton
 
-use gpui::{App, Context, SharedString, WeakEntity, Window, div, prelude::*};
-use gpui_component::{
+use gpui_kit::component::{
     ActiveTheme, Disableable, Icon, IconName, Sizable, StyledExt,
     checkbox::Checkbox,
     menu::{PopupMenu, PopupMenuItem},
     table::{Column, ColumnSort, TableDelegate, TableState},
     tooltip::Tooltip,
 };
+use gpui_kit::{App, Context, SharedString, WeakEntity, Window, div, prelude::*};
 use std::cmp::Ordering;
 use std::path::PathBuf;
 

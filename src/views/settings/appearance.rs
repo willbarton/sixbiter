@@ -1,12 +1,12 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 // Copyright (C) 2026 Will Barton
 
-use gpui::prelude::FluentBuilder;
-use gpui::{Context, IntoElement, ParentElement, Render, Styled, Window, div};
-use gpui_component::{
+use gpui_kit::component::{
     ActiveTheme, StyledExt,
     button::{Button, ButtonVariants},
 };
+use gpui_kit::prelude::FluentBuilder;
+use gpui_kit::{Context, IntoElement, ParentElement, Render, Styled, Window, div};
 
 use crate::appearance::{self, AppearancePref};
 

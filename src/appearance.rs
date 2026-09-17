@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 // Copyright (C) 2026 Will Barton
 
-use gpui::{App, Global, SharedString, WindowAppearance};
-use gpui_component::{Theme, ThemeRegistry};
+use gpui_kit::component::{Theme, ThemeRegistry};
+use gpui_kit::{App, Global, SharedString, WindowAppearance};
 use std::path::PathBuf;
 
 use crate::bundle;

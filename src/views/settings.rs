@@ -4,14 +4,14 @@
 mod appearance;
 mod mapping;
 
-use gpui::{
+use gpui_kit::component::{
+    ActiveTheme, IconName, Root, StyledExt,
+    sidebar::{Sidebar, SidebarMenu, SidebarMenuItem},
+};
+use gpui_kit::{
     App, AppContext, Bounds, Context, Entity, Global, IntoElement, ParentElement, Render, Styled,
     TitlebarOptions, WeakEntity, Window, WindowBounds, WindowHandle, WindowOptions, div, point, px,
     size,
-};
-use gpui_component::{
-    ActiveTheme, IconName, Root, StyledExt,
-    sidebar::{Sidebar, SidebarMenu, SidebarMenuItem},
 };
 
 use appearance::AppearanceView;
@@ -204,11 +204,11 @@ mod tests {
     use crate::lens::mapping::LensMapEntry;
     use crate::lens::store::LensStore;
     use crate::test_support::test_app;
-    use gpui::TestAppContext;
+    use gpui_kit::TestAppContext;
 
     /// `apply_intent` is where the files table's "Edit matching rule…" and
     /// "Create rule from this file…" actions land
-    #[gpui::test]
+    #[gpui_kit::test]
     fn an_intent_switches_to_the_lens_rules_section(cx: &mut TestAppContext) {
         let _tmp = test_app(cx);
         cx.update_global::<LensStore, _>(|store, _| {

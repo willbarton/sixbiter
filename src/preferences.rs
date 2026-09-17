@@ -3,7 +3,7 @@
 
 use std::path::PathBuf;
 
-use gpui::{App, BorrowAppContext, Global};
+use gpui_kit::{App, BorrowAppContext, Global};
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, Serialize, Deserialize)]

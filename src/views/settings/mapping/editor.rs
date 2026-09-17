@@ -1,14 +1,14 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 // Copyright (C) 2026 Will Barton
 
-use gpui::{
-    App, Context, Entity, EventEmitter, SharedString, Subscription, Window, div, prelude::*, px,
-};
-use gpui_component::{
+use gpui_kit::component::{
     ActiveTheme, IconName, StyledExt,
     button::{Button, ButtonVariants},
     input::{Input, InputEvent, InputState},
     scroll::ScrollableElement,
+};
+use gpui_kit::{
+    App, Context, Entity, EventEmitter, SharedString, Subscription, Window, div, prelude::*, px,
 };
 use indexmap::IndexMap;
 use serde_json::Value;
@@ -298,7 +298,7 @@ mod tests {
     use super::*;
     use crate::lens::mapping::LensMapEntry;
     use crate::test_support::test_app;
-    use gpui::{TestAppContext, WindowHandle};
+    use gpui_kit::{TestAppContext, WindowHandle};
     use serde_json::json;
 
     fn add_rules(cx: &mut TestAppContext, names: &[&str]) {
@@ -354,7 +354,7 @@ mod tests {
         cx.run_until_parked();
     }
 
-    #[gpui::test]
+    #[gpui_kit::test]
     fn commit_writes_the_panes_into_the_store(cx: &mut TestAppContext) {
         let _tmp = test_app(cx);
         add_rules(cx, &["A"]);
@@ -364,7 +364,7 @@ mod tests {
         assert_eq!(rule(cx, "A").tomatch["LensModel"], json!("Summicron"));
     }
 
-    #[gpui::test]
+    #[gpui_kit::test]
     fn commit_skips_rows_with_no_field_name(cx: &mut TestAppContext) {
         let _tmp = test_app(cx);
         add_rules(cx, &["A"]);
@@ -375,7 +375,7 @@ mod tests {
         assert!(rule(cx, "A").modify.is_empty());
     }
 
-    #[gpui::test]
+    #[gpui_kit::test]
     fn commit_renames_the_rule_and_announces_it(cx: &mut TestAppContext) {
         let _tmp = test_app(cx);
         add_rules(cx, &["A", "B"]);
@@ -404,7 +404,7 @@ mod tests {
         assert_eq!(to, "A-renamed");
     }
 
-    #[gpui::test]
+    #[gpui_kit::test]
     fn an_empty_name_is_not_a_rename(cx: &mut TestAppContext) {
         let _tmp = test_app(cx);
         add_rules(cx, &["A"]);
@@ -419,7 +419,7 @@ mod tests {
     }
 
     /// Typing a name another rule already owns is refused, said so, and undone.
-    #[gpui::test]
+    #[gpui_kit::test]
     fn a_colliding_rename_is_refused_and_reverts_the_field(cx: &mut TestAppContext) {
         let _tmp = test_app(cx);
         add_rules(cx, &["A", "B"]);
@@ -450,7 +450,7 @@ mod tests {
         );
     }
 
-    #[gpui::test]
+    #[gpui_kit::test]
     fn deleting_a_row_removes_the_field_from_the_store(cx: &mut TestAppContext) {
         let _tmp = test_app(cx);
         cx.update_global::<LensStore, _>(|store, _| {

@@ -3,11 +3,13 @@
 
 mod editor;
 
-use gpui::{Context, Entity, IntoElement, SharedString, Subscription, Window, div, prelude::*, px};
-use gpui_component::{
+use gpui_kit::component::{
     ActiveTheme, Disableable, IconName, StyledExt,
     button::{Button, ButtonVariants},
     scroll::ScrollableElement,
+};
+use gpui_kit::{
+    Context, Entity, IntoElement, SharedString, Subscription, Window, div, prelude::*, px,
 };
 
 use crate::lens::mapping::LensMapEntry;
@@ -195,7 +197,7 @@ impl Render for LensMappingView {
 mod tests {
     use super::*;
     use crate::test_support::test_app;
-    use gpui::TestAppContext;
+    use gpui_kit::TestAppContext;
 
     fn add_rules(cx: &mut TestAppContext, names: &[&str]) {
         cx.update_global::<LensStore, _>(|store, _| {
@@ -205,7 +207,7 @@ mod tests {
         });
     }
 
-    #[gpui::test]
+    #[gpui_kit::test]
     fn renaming_the_auto_selected_rule_moves_the_selection(cx: &mut TestAppContext) {
         let _tmp = test_app(cx);
         add_rules(cx, &["A", "B"]);
@@ -231,7 +233,7 @@ mod tests {
         assert_eq!(selected.as_deref(), Some("A-renamed"));
     }
 
-    #[gpui::test]
+    #[gpui_kit::test]
     fn renaming_a_different_rule_leaves_the_selection_alone(cx: &mut TestAppContext) {
         let _tmp = test_app(cx);
         add_rules(cx, &["A", "B"]);

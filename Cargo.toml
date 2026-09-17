@@ -23,34 +23,17 @@ anyhow = "1.0.100"
 tracing = "0.1"
 tracing-subscriber = { version = "0.3", features = ["env-filter", "fmt"] }
 
-# The zed crates are deliberately NOT pinned here -- they are pinned in
-# Cargo.lock instead, because gpui-component declares its own zed deps with no
-# rev.
+# GPUI, GPUI Base, GPUI Component and the default icon assets all arrive
+# through the single `gpui-kit` facade, which pins the matching `gpui-pre-*`
+# snapshot of GPUI itself. Nothing here comes from git any more.
 #
-# To bump: move the gpui-component rev below, read the zed rev out of
-# gpui-component's Cargo.lock at that commit, then re-pin the lockfile:
-#
-#   cargo update -p gpui --precise <zed-rev>
-gpui = {
-    git = "https://github.com/zed-industries/zed",
-}
-gpui_platform = {
-    git = "https://github.com/zed-industries/zed",
-    features = ["font-kit"]
-}
-gpui-component = {
-    git = "https://github.com/longbridge/gpui-component",
-    rev = "88f102d13654fe25aa2fede076274b6b751a3704",
-}
-gpui-component-assets = {
-    git = "https://github.com/longbridge/gpui-component",
-    rev = "88f102d13654fe25aa2fede076274b6b751a3704",
-}
+# To bump: move this version (and the dev-dependency below to match), then
+# `cargo update -p gpui-kit`. Pin exactly -- gpui-kit and the GPUI snapshots
+# it tracks are both pre-1.0.
+gpui-kit = "=0.6.1"
 
 [dev-dependencies]
 tempfile = "3"
 
-# Turn on the test-support feature in gpui
-gpui = { git = "https://github.com/zed-industries/zed", features = [
-    "test-support",
-] }
+# test-support fans out to GPUI, gpui_platform, GPUI Base and GPUI Component.
+gpui-kit = { version = "=0.6.1", features = ["test-support"] }
